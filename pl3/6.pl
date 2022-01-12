@@ -1,3 +1,5 @@
+:-use_module(library(ordsets)).
+
 %% recordando...
 
 % conhecimento
@@ -66,13 +68,11 @@ common_courses(S1, S2, C) :- setof(UC, (frequenta(UC, S1), frequenta(UC, S2)), C
 
 more_than_one_course(L) :- setof(Estudante, (UC1,UC2)^(frequenta(UC1, Estudante), frequenta(UC2, Estudante), UC1 \= UC2), L).
 
-% g) nao estou a conseguir fazer este :((((
+% g)
 
-strangers(S1, S2) :- S1 \= S2,
-                     \+ colega(S1, S2, _).
-                     
-
-strangers(L) :- setof(S1-S2, strangers(S1, S2), L).
+strangers(L) :- setof(S1-S2, (UC1,UC2)^(frequenta(UC1, S1), frequenta(UC2, S2), S1 \= S2), StudentPairs),
+                setof(S1-S2, UC^colega(S1, S2, UC), MatePairs),
+                ord_subtract(StudentPairs, MatePairs, L).
 
 % h)
 

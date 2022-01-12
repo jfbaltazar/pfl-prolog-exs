@@ -87,13 +87,6 @@ repeat(N, Elem, [Elem | T]) :- N > 0,
                                N1 is N-1,
                                repeat(N1, Elem, T).
 
-%space_fill(Text, Size, StuffedText) :- length(StuffedText, Size),
-%                                       length(Text, OldSize),
-%                                       NSpaces is Size-OldSize,
-%                                       char_code(' ', Space),
-%                                       repeat(NSpaces, Space, Spaces),
-%                                       append(Text, Spaces, StuffedText).
-
 adjust_alignment(Text, Size, Text) :- length(Text, TextSize),
                                       0 is (Size - TextSize) mod 2.
 adjust_alignment(Text, Size, [32 | Text]) :- length(Text, TextSize),
